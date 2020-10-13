@@ -1,0 +1,54 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles de la película</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="movi">
+        <H4>Descripción: </H4><p [innerHTML]="movi.summary">{{movi.summary}}</p>
+        <H4>Lenguaje:</H4> <p> {{movi.language}}</p> 
+        <H4>Puntaje: </H4> <p>{{movi.externals.imdb}}</p>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="genreF" (ngSubmit)="onSubmit()">
+  <div class="col-12">
+    <div class="row">
+      <input type="text" id="pelicula" formControlName = "genre" placeholder="Ingrese género"><button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Portada</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Fecha lanzamiento</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies" id="{{movie.show.id}}">
+      <td height=100 width=200>{{movie.show.name}}</td>
+      <td height=200 width=200><img src="{{ movie.show.image.original}}" class="img-thumbnail"></td>
+      <td height=100 width=200>{{movie.show.type}}</td>
+      <td height=100 width=200>{{movie.show.premiered}}</td>
+      <td ><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="handleClick(movie.show.id)"> 
+        detalles
+      </button></td>
+    </tr>
+  </tbody>
+</table>
+
